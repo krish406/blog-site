@@ -32,3 +32,9 @@ button {
   padding: 10px;
   border-radius: 10px;
 }
+
+.blog-container{
+  display:flex;
+  flex-direction: row;
+  gap: 50px;
+}

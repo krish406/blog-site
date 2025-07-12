@@ -2,14 +2,14 @@
     <h1>Create a New Blog Post</h1>
     <button id="create-button">Create</button>
     <dialog id="create-dialog">
-        <form class="create-form" method="post" action = "/create">
+        <form class="create-form" method="post" action="/create">
             <div>
                 <label for="post-title">Title:</label>
-                <input type="text" id="post-title" name = "post-title">
+                <input type="text" id="post-title" name="post-title">
             </div>
             <div>
                 <label for="post-content">Content:</label>
-                <textarea id="post-content" name = "post-content" rows = "30" cols = "50"></textarea>
+                <textarea id="post-content" name="post-content" rows="30" cols="50"></textarea>
             </div>
             <div>
                 <button type="button" id="close-dialog">Cancel</button>
@@ -19,7 +19,14 @@
     </dialog>
     <script src="/script.js"></script>
     <% if(locals.blogs){ %>
-        <% blogs.forEach((blog, index) => { %>
-            <p><%= blog.title %></p>
+        <% blogs.forEach((blog, index)=> { %>
+            <div class="blog-container">
+                <p>
+                    <%= blog.title %>
+                </p>
+                <form action="/read/<%= blog.id %>" method="get"><button>Read</button></form>
+                <form action="/replace" method="put"><button>Edit</button></form>
+                <form action="/remove" method="delete"><button>Delete</button></form>
+            </div>
         <% }) %>
     <% } %>
