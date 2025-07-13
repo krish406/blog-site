@@ -24,9 +24,17 @@
                 <p>
                     <%= blog.title %>
                 </p>
-                <form action="/read/<%= blog.id %>" method="get"><button>Read</button></form>
-                <form action="/replace" method="put"><button>Edit</button></form>
-                <form action="/remove" method="delete"><button>Delete</button></form>
+                <form action="/read/<%= blog.id %>" method="get">
+                    <button>Read</button>
+                </form>
+                <form action="/replace" method="post">
+                    <button>Edit</button>
+                </form>
+                <form action="/remove" method="post">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="id" value="<%= blog.id%>">
+                    <button>Delete</button>
+                </form>
             </div>
         <% }) %>
     <% } %>
