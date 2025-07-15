@@ -17,7 +17,24 @@
             </div>
         </form>
     </dialog>
-    <script src="/script.js"></script>
+
+    <dialog id="edit-dialog">
+        <form class="edit-form" method="post" action="/edit">
+            <div>
+                <label for="post-title">Title:</label>
+                <input type="text" id="post-title" name="post-title">
+            </div>
+            <div>
+                <label for="post-content">Content:</label>
+                <textarea id="post-content" name="post-content" rows="30" cols="50"></textarea>
+            </div>
+            <div>
+                <button type="button" id="close-edit-dialog">Cancel</button>
+                <button type="submit" id = "submit-edits">Update Post</button>
+            </div>
+        </form>
+    </dialog>
+
     <% if(locals.blogs){ %>
         <% blogs.forEach((blog, index)=> { %>
             <div class="blog-container">
@@ -27,14 +44,15 @@
                 <form action="/read/<%= blog.id %>" method="get">
                     <button>Read</button>
                 </form>
-                <form action="/replace" method="post">
-                    <button>Edit</button>
-                </form>
+                <button class = "edit-button" data-id = "<%= blog.id %>">Edit</button>
                 <form action="/remove" method="post">
-                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_method" value="delete">
                     <input type="hidden" name="id" value="<%= blog.id%>">
                     <button>Delete</button>
                 </form>
             </div>
         <% }) %>
     <% } %>
+
+<script src="/script.js"></script> 
+    

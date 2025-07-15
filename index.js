@@ -52,6 +52,25 @@ app.get("/read/:id", (req, res) => {
   }
 });
 
+app.get("/load-edit/:id", (req, res) => {
+  const userID = req.params.id;
+  const currentBlog = blogs.find((blog) => {
+    console.log(blog.id, userID);
+    return blog.id === userID
+  });
+  console.log(currentBlog);
+  if (currentBlog) {
+    res.json({
+      blogs: blogs,
+      title: currentBlog.title,
+      content: currentBlog.content,
+      edit: true
+    });
+  } else {
+    res.status(404).send("Blog not found");
+  }
+})
+
 app.delete("/remove", (req, res) => {
   const userID = req.body.id;
   console.log(userID);
@@ -61,9 +80,9 @@ app.delete("/remove", (req, res) => {
     blogs.splice(currentBlogNum, 1);
     console.log("Blog deleted successfully");
   }
-  
+
   res.redirect("/");
-})
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
