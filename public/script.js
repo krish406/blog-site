@@ -5,7 +5,7 @@ const closeDialog = document.querySelector("#close-dialog");
 const editButton = document.querySelectorAll(".edit-button");
 const editDialog = document.querySelector("#edit-dialog");
 const closeEditDialog = document.querySelector("#close-edit-dialog");
-const submitEditDialog = document.querySelector("#submit-edits");
+const submitEditForm = document.querySelector(".edit-form");
 
 createButton.addEventListener("click", () => {
   createDialog.showModal();
@@ -29,15 +29,9 @@ editButton.forEach((button) => {
     blogObj.then((result) => {
       editDialog.querySelector("input[name='post-title']").value = result.title;
       editDialog.querySelector("textarea[name='post-content']").value = result.content;
-      editDialog.setAttribute("currentID", button.dataset.id);
-    })
+      editDialog.querySelector("form").action = `/edit/${button.dataset.id}`;
+    });
   });
-});
-
-submitEditDialog.addEventListener("click", (e) => {
-  e.preventDefault();
-  const ID = editDialog.getAttribute("currentID");
-  console.log(ID);
 });
 
 closeEditDialog.addEventListener("click", (e) => {
