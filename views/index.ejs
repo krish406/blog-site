@@ -1,60 +1,85 @@
 <%- include('partials/header.ejs') %>
-    <h1>Create a New Blog Post</h1>
-    <button id="create-button">Create</button>
+    <div class="header">
+        <h1 class="roboto-slab-med">Your Blogs</h1>
+        <button id="create-button">Create Blog</button>
+    </div>
+
     <dialog id="create-dialog">
         <form class="create-form" method="post" action="/create">
-            <div>
-                <label for="post-title">Title:</label>
-                <input type="text" id="post-title" name="post-title">
-            </div>
-            <div>
-                <label for="post-content">Content:</label>
-                <textarea id="post-content" name="post-content" rows="30" cols="50"></textarea>
-            </div>
-            <div>
-                <button type="button" id="close-dialog">Cancel</button>
-                <button type="submit">Create Post</button>
-            </div>
+            <table>
+                <tr>
+                    <td><label for="post-title">Title:</label></td>
+                </tr>
+                <tr>
+                    <td><input type="text" id="post-title" name="post-title" required></td>
+                </tr>
+                <tr>
+                    <td><label for="post-content">Content:</label></td>
+                </tr>
+                <tr>
+                    <td><textarea id="post-content" name="post-content" rows="30" cols="50" required></textarea></td>
+                </tr>
+                <tr class="create-final">
+                    <td>
+                        <button type="button" id="close-dialog">Cancel</button>
+                        <button type="submit">Create Post</button>
+                    </td>
+                </tr>
+            </table>
         </form>
     </dialog>
 
     <dialog id="edit-dialog">
         <form class="edit-form" method="post" action="/edit/PLACEHOLDER">
             <input type="hidden" name="_method" value="PUT">
-            <div>
-                <label for="edit-post-title">Title:</label>
-                <input type="text" id="edit-post-title" name="post-title">
-            </div>
-            <div>
-                <label for="edit-post-content">Content:</label>
-                <textarea id="edit-post-content" name="post-content" rows="30" cols="50"></textarea>
-            </div>
-            <div>
-                <button type="button" id="close-edit-dialog">Cancel</button>
-                <button type="submit">Update Post</button>
-            </div>
+            <table>
+                <tr>
+                    <td><label for="edit-post-title">Title:</label></td>
+                </tr>
+                <tr>
+                    <td><input type="text" id="edit-post-title" name="post-title" required></td>
+                </tr>
+                <tr>
+                    <td><label for="edit-post-content">Content:</label></td>
+                </tr>
+                <tr>
+                    <td><textarea id="edit-post-content" name="post-content" rows="30" cols="50" required></textarea>
+                    </td>
+                </tr>
+                <tr class="edit-final">
+                    <td>
+                        <button type="button" id="close-edit-dialog">Cancel</button>
+                        <button type="submit">Update Post</button>
+                    </td>
+                </tr>
+            </table>
         </form>
     </dialog>
 
     <!-- Dynamically render all blogs that the user has created -->
-    <% if(locals.blogs){ %>
-        <% blogs.forEach((blog, index)=> { %>
-            <div class="blog-container">
-                <p>
-                    <%= blog.title %>
-                </p>
-                <form action="/read/<%= blog.id %>" method="get">
-                    <button>Read</button>
-                </form>
-                <button class = "edit-button" data-id = "<%= blog.id %>">Edit</button>
-                <form action="/remove" method="post">
-                    <input type="hidden" name="_method" value="delete">
-                    <input type="hidden" name="id" value="<%= blog.id%>">
-                    <button>Delete</button>
-                </form>
-            </div>
-        <% }) %>
-    <% } %>
+    <div class="blogs-container">
+        <div class="blogs-display">
+            <% if(locals.blogs){ %>
+                <% blogs.forEach((blog, index)=> { %>
+                    <div class="blog">
+                        <p>
+                            <%= blog.title %>
+                        </p>
+                        <div class="blog-update-btns">
+                            <form action="/read/<%= blog.id %>" method="get">
+                                <button>Read</button>
+                            </form>
+                            <button class="edit-button" data-id="<%= blog.id %>">Edit</button>
+                            <form action="/remove" method="post">
+                                <input type="hidden" name="_method" value="delete">
+                                <input type="hidden" name="id" value="<%= blog.id%>">
+                                <button>Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                    <% }) %>
+                        <% } %>
+        </div>
+    </div>
 
-<script src="/script.js"></script> 
-    
+    <script src="/script.js"></script>
